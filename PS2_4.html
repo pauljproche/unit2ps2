@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = "utf-8"> 
+    <title>Problem 4</title>
+    <!--
+        1. reuse problem 3 form
+        2. rework spk event handler to not have a param (i.e., speak())
+        3. assign event handlerr w/in window.onload
+    -->
+</head>
+<body>
+    <form> <!--P3 form -->
+        <label for="nameInput">Enter your name:</label>
+        <input type="text" id="nameInput">
+        <br><br>
+        <button id="helloBtn">Hello</button>
+        <button id="goodbyeBtn">Good Bye</button>
+        <button id="greetingsBtn">Greetings</button>
+      </form>
+    
+      <script>
+        window.onload = function() { //assign event handler within onload()
+            var helloBtn = document.getElementById("helloBtn");
+            helloBtn.onclick = speak;
+        
+            var goodbyeBtn = document.getElementById("goodbyeBtn");
+            goodbyeBtn.onclick = speak;
+        
+            var greetingsBtn = document.getElementById("greetingsBtn");
+            greetingsBtn.onclick = speak;
+        };
+    
+        function speak() { //no prefix
+            var prefix = this.innerHTML; // Read the innerHTML of clicked button
+            var name = document.getElementById("nameInput").value;
+            alert(prefix + " " + name);
+        }
+      </script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "utf-8"> 
+    <title>Problem 2</title> 
+    <!-- 
+        1. Create string var with several names seperated by commas
+        2. split() to convert into array of names
+        3.use array methods and str concat to display names as nnumbered list  
+        3.a can't usea for/while loop  - ALT: use forEach + anon function 
+        which will created a numbed  
+    -->
+</head>
+<body>
+    <script>
+        var namesString = "Pat, Chris, Marlon, Ferncroft, Assunta";
+        var namesArray = namesString.split(", ");
+
+        var numberedList = "<ol>"; //open ol
+
+        namesArray.forEach(function(name) {
+            numberedList += "<li>" + name + "</li>"; //add each li inside ol
+        });
+        numberedList += "</ol>"; //close the ol
+
+        document.write(numberedList);
+    </script>
+</body>
+</html>

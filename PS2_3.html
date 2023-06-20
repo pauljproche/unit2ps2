@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "utf-8"> 
+    <title>Problem 3</title> 
+    <!-- 
+        1. Create <form> with an input box for users & 3 labeld buttons
+        2. add onclick attribute to each button, call speak(prefix) w/ diff prefix
+        3.write speak() pops up alert with prefix & name entered
+        4. assign event handlers to buttons  
+    -->
+</head>
+<body>
+    <form>
+        <label for="name">Enter your name:</label>
+        <input type="text" id="name">
+        <br><br>
+        <button onclick="speak('Hello')">Hello</button> <!--labeled btn. 1-->
+        <button onclick="speak('Good Bye')">Good Bye</button> <!--lb. 2-->
+        <button onclick="speak('Greetings')">Greetings</button> <!--lb. 3-->
+      </form>
+    
+      <script>
+        function speak(prefix) { 
+          var nameVal = document.getElementById("name").value; //access name val 
+          alert(prefix + " " + nameVal); //popup will put prefix + nameVal
+        }
+      </script>
+</body>
+</html>

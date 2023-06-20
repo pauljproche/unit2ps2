@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"> 
+    <title>Problem 6</title>
+</head>
+<body>
+    <form>
+        <label for="itemSelect">Select an item:</label>
+        <select id="itemSelect"></select>
+        <br><br>
+        <label for="quantityInput">Quantity:</label>
+        <input type="number" id="quantityInput" min="1" max="100">
+        <button type="button" id="addButton">Add</button>
+    </form>
+
+  <div id="orderDisplay"></div>
+
+  <script>
+    var items = [ // Create items objects
+        { name: "Item 1", price: 10, quantity: 0 },
+        { name: "Item 2", price: 20, quantity: 0 },
+        { name: "Item 3", price: 30, quantity: 0 },
+        { name: "Item 4", price: 40, quantity: 0 },
+        { name: "Item 5", price: 50, quantity: 0 }
+    ];
+    var order = []; // Array to store the order
+    var totalCost = 0; // Variable to track the total cost of the order
+
+    function populateDropdown() {
+        var dropdown = document.getElementById("itemSelect");
+        items.forEach(function(item, index) {
+            var option = document.createElement("option");
+            option.value = index;
+            option.text = item.name; // Set the name property as the option text
+            dropdown.appendChild(option);
+        });
+    }
+
+    function addItem() {
+        var selectedIndex = document.getElementById("itemSelect").value;
+        var quantity = parseInt(document.getElementById("quantityInput").value);
+
+        if (!isNaN(quantity) && quantity >= 1 && quantity <= 100) {
+            var selectedItem = items[selectedIndex];
+            var price = selectedItem.price;
+            var subtotal = price * quantity;
+
+            order.push({
+                item: selectedItem.name,
+                quantity: quantity,
+                subtotal: subtotal
+            });
+
+            totalCost += subtotal;
+
+            displayOrder();
+        } else {
+            alert("Please enter a valid quantity between 1 and 100.");
+        }
+    }
+
+    function displayOrder() {
+        var orderDisplay = document.getElementById("orderDisplay");
+        orderDisplay.innerHTML = "";
+
+        order.forEach(function(item) {
+            var line = document.createElement("p");
+            line.textContent = item.quantity + " of " + item.item + " - $" + item.subtotal;
+            orderDisplay.appendChild(line);
+        });
+
+        var totalLine = document.createElement("p");
+        totalLine.textContent = "Total: $" + totalCost;
+        orderDisplay.appendChild(totalLine);
+    }
+
+    function startOver() {
+        order = [];
+        totalCost = 0;
+        displayOrder();
+    }
+
+    populateDropdown();
+    document.getElementById("addButton").addEventListener("click", addItem);
+
+  </script>
+</body>
+</html>

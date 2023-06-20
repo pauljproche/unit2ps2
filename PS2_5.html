@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"> 
+    <title>Problem 5</title>
+    <!--
+        1. create form with dropdown, input box, and a button
+        2. create <option> elements for the dropdown, using the "items" array
+        3. function to handle the "Add" button click event
+        4. Validate the quantity input
+        4.b Show name, quantity, and price in the order display area, and update the total cost.
+        5. Add a "Start Over" button that resets the order.
+    -->
+</head>
+<body>
+    <form>
+        <label for="itmSelect">Select an item:</label>
+        <select id="itmSelect"></select>
+        <br/>
+        <label for="quantInput">Quantity:</label>
+        <input type="number" id="quantInput" min="1" max="100">
+        <button type="button" onclick="addItem()">Add</button>
+    </form>
+
+    <div id="orderDisplay"></div>
+
+    <button type="button" onclick="startOver()">Start Over</button>
+
+    <script>
+        var items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]; //5 purchasable items
+        var prices = [10, 20, 30, 40, 50]; //rand price for each item
+        var order = []; //empty array to store the order
+        var totalCost = 0; // track total cost of order
+
+        function populateDropdown() { //imp of populate the dropdown 
+            var dropdown = document.getElementById("itmSelect");
+            items.forEach(function(item, index) { 
+                var option = document.createElement("option");
+                option.value = index;
+                option.text = item;
+                dropdown.appendChild(option);
+            });
+        }
+
+        function addItem() { //addItem 
+            var selectedIndex = document.getElementById("itmSelect").value;
+            var quantity = parseInt(document.getElementById("quantInput").value);
+
+            if (!isNaN(quantity) && quantity >= 1 && quantity <= 100) { //if within range 1 -100 and a nb. 
+                var item = items[selectedIndex];
+                var price = prices[selectedIndex];
+                var subtotal = price * quantity;
+
+                order.push({ // add the item to order array
+                    item: item,
+                    quantity: quantity,
+                    subtotal: subtotal
+                });
+
+                totalCost += subtotal; //update total cost
+
+                displayOrder(); // Display the updated order
+            } else {
+                alert("Please enter a valid quantity between 1 and 100.");
+            }
+        }
+
+        function displayOrder() { //display the order
+            var orderDisplay = document.getElementById("orderDisplay");
+            orderDisplay.innerHTML = "";
+
+            order.forEach(function(item) {
+                var line = document.createElement("p");
+                line.textContent = item.quantity + " of " + item.item + " - $" + item.subtotal;
+                orderDisplay.appendChild(line);
+            });
+
+            var totalLine = document.createElement("p");
+            totalLine.textContent = "Total: $" + totalCost;
+            orderDisplay.appendChild(totalLine);
+        }
+
+        function startOver() {//f to start over and reset the order
+            order = [];
+            totalCost = 0;
+            displayOrder();
+        }
+
+        populateDropdown(); // now populate the dropdown options
+    </script>
+</body>
+</html>
